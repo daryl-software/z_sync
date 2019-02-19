@@ -1,13 +1,19 @@
 # Install
 ```
 git submodule  update --init
-git submodule foreach 'composer install --ignore-platform-reqs || :'
-git submodule foreach 'npm install --ignore-platform-reqs || :'
+git submodule foreach 'test -e composer.json && composer install --ignore-platform-reqs || :'
+git submodule foreach 'test -e package.json && npm install --ignore-platform-reqs || :'
 ```
 
 ## Update projects
 ```
 git submodule foreach git pull --rebase
+```
+
+## Outdated deps
+```
+git submodule foreach 'test -e composer.json && composer outdated -D || :'
+git submodule foreach 'test -e package.json && npm outdated || :'
 ```
 
 ## Grep in projects
