@@ -1,0 +1,42 @@
+[submodule "global"]
+	path = global
+	url = ssh://git@gitlab.easyflirt.com:222/global/global.git
+[submodule "fusion"]
+	path = fusion
+	url = ssh://git@gitlab.easyflirt.com:222/dating/fusion.git
+[submodule "call"]
+	path = call
+	url = ssh://git@gitlab.easyflirt.com:222/global/call.git
+[submodule "admin-web-ui"]
+	path = admin-web-ui
+	url = ssh://git@gitlab.easyflirt.com:222/dating/admin-web-ui.git
+[submodule "admin-web-tools"]
+	path = admin-web-tools
+	url = ssh://git@gitlab.easyflirt.com:222/global/admin-web-tools.git
+[submodule "archi_config"]
+	path = archi_config
+	url = ssh://git@gitlab.easyflirt.com:222/global/archi_config.git
+[submodule "archi_config_loader"]
+	path = archi_config_loader
+	url = ssh://git@gitlab.easyflirt.com:222/config/archi_config_loader.git
+[submodule "biz"]
+	path = biz
+	url = ssh://git@gitlab.easyflirt.com:222/prelinker/biz.git
+[submodule "biz_admin"]
+	path = biz_admin
+	url = ssh://git@gitlab.easyflirt.com:222/prelinker/biz_admin.git
+[submodule "v4"]
+	path = v4
+	url = ssh://git@gitlab.easyflirt.com:222/dating/v4.git
+[submodule "v5"]
+	path = v5
+	url = ssh://git@gitlab.easyflirt.com:222/dating/v5.git
+[submodule "cpg"]
+	path = cpg
+	url = ssh://git@gitlab.easyflirt.com:222/payment/cpg.git
+[submodule "pay"]
+	path = pay
+	url = ssh://git@gitlab.easyflirt.com:222/payment/pay.git
+[submodule "promo"]
+	path = promo
+	url = ssh://git@gitlab.easyflirt.com:222/prelinker/promo.git
