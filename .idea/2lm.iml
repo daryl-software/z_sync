@@ -4,16 +4,21 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/admin-web-tools" />
       <excludeFolder url="file://$MODULE_DIR$/admin-web-ui" />
+      <excludeFolder url="file://$MODULE_DIR$/android-multichannel" />
       <excludeFolder url="file://$MODULE_DIR$/archi_config" />
       <excludeFolder url="file://$MODULE_DIR$/archi_config_loader" />
       <excludeFolder url="file://$MODULE_DIR$/biz" />
       <excludeFolder url="file://$MODULE_DIR$/biz_admin" />
+      <excludeFolder url="file://$MODULE_DIR$/bridghit" />
       <excludeFolder url="file://$MODULE_DIR$/call" />
       <excludeFolder url="file://$MODULE_DIR$/cpg" />
+      <excludeFolder url="file://$MODULE_DIR$/dblinker" />
       <excludeFolder url="file://$MODULE_DIR$/fusion" />
       <excludeFolder url="file://$MODULE_DIR$/global" />
+      <excludeFolder url="file://$MODULE_DIR$/ios" />
       <excludeFolder url="file://$MODULE_DIR$/pay" />
       <excludeFolder url="file://$MODULE_DIR$/promo" />
+      <excludeFolder url="file://$MODULE_DIR$/redirect" />
       <excludeFolder url="file://$MODULE_DIR$/v4" />
       <excludeFolder url="file://$MODULE_DIR$/v5" />
     </content>

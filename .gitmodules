@@ -40,3 +40,18 @@
 [submodule "promo"]
 	path = promo
 	url = ssh://git@gitlab.easyflirt.com:222/prelinker/promo.git
+[submodule "ios"]
+	path = ios
+	url = ssh://git@gitlab.easyflirt.com:222/dating/dating_ios.git
+[submodule "android-multichannel"]
+	path = android-multichannel
+	url = ssh://git@gitlab.easyflirt.com:222/dating/android-multichannel.git
+[submodule "dblinker"]
+	path = dblinker
+	url = https://github.com/ezweb/dblinker.git
+[submodule "redirect"]
+	path = redirect
+	url = ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/redirect.git
+[submodule "bridghit"]
+	path = bridghit
+	url = ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git

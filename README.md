@@ -1,6 +1,13 @@
-# Install / Update project
+# Install
 ```
-git submodule foreach --recursive git submodule update --init 
+git submodule  update --init
+git submodule foreach 'composer install --ignore-platform-reqs || :'
+git submodule foreach 'npm install --ignore-platform-reqs || :'
+```
+
+## Update projects
+```
+git submodule foreach git pull --rebase
 ```
 
 ## Grep in projects
@@ -24,5 +31,5 @@ ackgrep expression
 
 ## Adding a project
 ```sh
-git submodule add ssh://git@gitlab.easyflirt.com:222/dating/v4.git v4
+git submodule add ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git bridghit
 ```
