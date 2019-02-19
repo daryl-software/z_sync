@@ -16,17 +16,7 @@ git submodule foreach 'test -e composer.json && composer outdated -D || :'
 git submodule foreach 'test -e package.json && npm outdated || :'
 ```
 
-## Grep in projects
-Create a `~/.ackrc` file containing
-```
---ignore-dir=.idea/
---ignore-dir=node_modules/
---ignore-dir=vendor/
---ignore-dir=bower_components/
---ignore-dir=bower_files/
-```
-
-Grep files
+## Grep files
 ```bash
 # grep php files
 ackgrep --php expression
