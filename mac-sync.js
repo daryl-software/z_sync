@@ -3,10 +3,41 @@ const path = require('path');
 const rsync = require('rsync');
 const config = require('./z_sync/config');
 const Queue = require('promise-queue');
+const { createLogger, format, transports } = require('winston');
 
+let level = 'info';
+let vRegex = new RegExp(/^-([v]{1,})$/);
+process.argv.forEach((arg) => {
+   if (arg.match(vRegex)) {
+       let match = arg.match(vRegex);
+       let n = match[1].length;
+       if (n >= 3) {
+           level = 'silly';
+       } else if (n >= 2) {
+           level = 'debug';
+       } else if (n >= 1) {
+           level = 'verbose';
+       }
+   }
+});
+
+const logger = createLogger({
+    level: level,
+    format: format.combine(
+        format.colorize(),
+        format.splat(),
+        format.simple()
+    ),
+    transports: [
+        new transports.Console(),
+    ]
+});
 var queue = new Queue(1, Infinity);
 
 const folderRegex = new RegExp('^(' + config.folders.join('|') + ')');
+
+logger.silly(folderRegex);
+
 function ignore(path) {
     if (path.match(/\.(idea\/|git\/|DS_Store|AppleDouble)/)) {
         return true;
@@ -21,20 +52,21 @@ function ignore(path) {
     return false;
 }
 
-function changed(thepath, info) {
+function changed(thepath) {
+    logger.silly('file changed ' + thepath);
     if (ignore(thepath)) {
-        // ignored regex
+        logger.debug('ignored change in ' + thepath);
         return;
     }
 
     const relative = path.relative(__dirname, thepath);
     if (!relative.match(folderRegex)) {
         // ignored path
-        // console.log('skipped', relative);
+        logger.debug('skipped ' + relative);
         return;
     }
-    console.info('file changed', relative);
-    enqueue(path.dirname(relative))
+    logger.info('file changed ' + relative);
+    enqueue(path.dirname(relative) + '/')
 }
 
 function enqueue(folder) {
@@ -42,7 +74,7 @@ function enqueue(folder) {
         let found = false;
         for (const old of queued) {
             if (folder.indexOf(old) === 0) {
-                console.log('parent already in queue');
+                logger.debug('parent already in queue');
                 found = true;
                 break;
             }
@@ -53,13 +85,14 @@ function enqueue(folder) {
         queued.push(folder);
         queued.sort();
 
-        console.log('queue', queued);
+        logger.debug('queuing sync ' + folder);
         queue.add(sync);
     }
 }
 
 function sync() {
-    const folder = queued.pop();
+    const folder = '/' + queued.pop();
+    logger.debug('[' + folder + '] rsync start');
 
     var rs = new rsync()
         // .dry()
@@ -70,19 +103,21 @@ function sync() {
         .set('checksum')
         .set('exclude-from', 'z_sync/exclude.txt')
         .delete()
-        .source(__dirname + '/' + folder)
-        .destination('florian@lab.easyflirt.com:~/' + folder)
+        .source(__dirname + folder)
+        .destination('lab.easyflirt.com:~' + folder)
     ;
     rs.execute(function(error, code, cmd) {
-        console.log('rsync finished', error, code, cmd);
+        logger.info('Done syncing ' + folder);
+        // logger.debug('rsync finished', error, code, cmd);
     }, function(data){
-        console.debug(data.toString('utf8'));
+        // progress
+        // output += data.toString('utf8');
     }, function(data) {
-        console.error(data);
+        logger.error(data);
     });
 }
 
-console.info('Watching file change in ' + __dirname);
+logger.info('Watching file change in ' + __dirname);
 
 /**
  * Queued folder to sync
