@@ -1,0 +1,20 @@
+{
+  "name": "2lm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "fsevents": "^1.2.7",
+    "rsync": "^0.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "mac-sync": "node mac-sync.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@gitlab.easyflirt.com:222/florian/2lm.git"
+  },
+  "author": "Florian Morello",
+  "license": "ISC"
+}
