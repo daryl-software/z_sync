@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "fsevents": "^1.2.7",
+    "promise-queue": "^2.2.5",
     "rsync": "^0.6.1"
   },
   "devDependencies": {},

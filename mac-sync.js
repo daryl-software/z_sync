@@ -2,6 +2,9 @@ const fsevents = require('fsevents');
 const path = require('path');
 const rsync = require('rsync');
 const config = require('./z_sync/config');
+const Queue = require('promise-queue');
+
+var queue = new Queue(1, Infinity);
 
 const folderRegex = new RegExp('^(' + config.folders.join('|') + ')');
 function ignore(path) {
@@ -51,7 +54,7 @@ function enqueue(folder) {
         queued.sort();
 
         console.log('queue', queued);
-        sync();
+        queue.add(sync);
     }
 }
 
