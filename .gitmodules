@@ -1,57 +1,76 @@
 [submodule "global"]
 	path = global
 	url = ssh://git@gitlab.easyflirt.com:222/global/global.git
+	ignore = all
 [submodule "fusion"]
 	path = fusion
 	url = ssh://git@gitlab.easyflirt.com:222/dating/fusion.git
+	ignore = all
 [submodule "call"]
 	path = call
 	url = ssh://git@gitlab.easyflirt.com:222/global/call.git
+	ignore = all
 [submodule "admin-web-ui"]
 	path = admin-web-ui
 	url = ssh://git@gitlab.easyflirt.com:222/dating/admin-web-ui.git
+	ignore = all
 [submodule "admin-web-tools"]
 	path = admin-web-tools
 	url = ssh://git@gitlab.easyflirt.com:222/global/admin-web-tools.git
+	ignore = all
 [submodule "archi_config"]
 	path = archi_config
 	url = ssh://git@gitlab.easyflirt.com:222/global/archi_config.git
+	ignore = all
 [submodule "archi_config_loader"]
 	path = archi_config_loader
 	url = ssh://git@gitlab.easyflirt.com:222/config/archi_config_loader.git
+	ignore = all
 [submodule "biz"]
 	path = biz
 	url = ssh://git@gitlab.easyflirt.com:222/prelinker/biz.git
+	ignore = all
 [submodule "biz_admin"]
 	path = biz_admin
 	url = ssh://git@gitlab.easyflirt.com:222/prelinker/biz_admin.git
+	ignore = all
 [submodule "v4"]
 	path = v4
 	url = ssh://git@gitlab.easyflirt.com:222/dating/v4.git
+	ignore = all
 [submodule "v5"]
 	path = v5
 	url = ssh://git@gitlab.easyflirt.com:222/dating/v5.git
+	ignore = all
 [submodule "cpg"]
 	path = cpg
 	url = ssh://git@gitlab.easyflirt.com:222/payment/cpg.git
+	ignore = all
 [submodule "pay"]
 	path = pay
 	url = ssh://git@gitlab.easyflirt.com:222/payment/pay.git
+	ignore = all
 [submodule "promo"]
 	path = promo
 	url = ssh://git@gitlab.easyflirt.com:222/prelinker/promo.git
+	ignore = all
 [submodule "ios"]
 	path = ios
 	url = ssh://git@gitlab.easyflirt.com:222/dating/dating_ios.git
+	ignore = all
 [submodule "android-multichannel"]
 	path = android-multichannel
 	url = ssh://git@gitlab.easyflirt.com:222/dating/android-multichannel.git
+	ignore = all
 [submodule "dblinker"]
 	path = dblinker
 	url = https://github.com/ezweb/dblinker.git
+	ignore = all
 [submodule "redirect"]
 	path = redirect
 	url = ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/redirect.git
+	ignore = all
 [submodule "bridghit"]
 	path = bridghit
 	url = ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git
+	ignore = all
