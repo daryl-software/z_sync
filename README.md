@@ -1,5 +1,10 @@
 # 2LM Meta project
 
+## Sync
+```bash
+brew install lsyncd
+sudo z_sync/sync.sh
+```
 
 ## Install
 ```bash
@@ -22,13 +27,14 @@ git submodule foreach 'test -e package.json && npm outdated || true'
 ## Grep files
 ```bash
 # grep php files
-ackgrep --php expression
+ack --php expression
 
 # grep all files
-ackgrep expression
+ack expression
 ```
 
 ## Adding a project
 ```bash
 git submodule add ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git bridghit
 ```
+

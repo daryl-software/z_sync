@@ -1,0 +1,12 @@
+.git/*
+.idea/*
+/android-multichannel
+/ios
+/z_sync
+.DS_Store
+.AppleDouble
+*___jb_old___
+*___jb_tmp___
+*___jb_bak___
+*.swp
+*.swpx

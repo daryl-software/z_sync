@@ -2,3 +2,4 @@
 /.idea/php.xml
 /node_modules
 /.idea/inspectionProfiles
+z_sync/*.log

@@ -1,5 +1,0 @@
-\.(DS_Store|AppleDouble|settings|buildpath|project)
-(biz|easy)/cache
-\.(git|idea)/
-___jb_(bak|old|tmp)___
-\.sw[px]$

@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="All But !" pattern="file[2lm]:*/&amp;&amp;!file[2lm]:*/vendor//*" />
+</component>

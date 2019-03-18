@@ -3,14 +3,12 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/android-multichannel" />
-      <excludeFolder url="file://$MODULE_DIR$/archi_config_loader" />
-      <excludeFolder url="file://$MODULE_DIR$/biz" />
-      <excludeFolder url="file://$MODULE_DIR$/biz_admin" />
+      <excludeFolder url="file://$MODULE_DIR$/biz_admin/vendor/prelinker" />
       <excludeFolder url="file://$MODULE_DIR$/bridghit" />
-      <excludeFolder url="file://$MODULE_DIR$/cpg" />
-      <excludeFolder url="file://$MODULE_DIR$/dblinker" />
+      <excludeFolder url="file://$MODULE_DIR$/global/vendor/phpmyadmin/sql-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/global/vendor/psr/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/global/vendor/psr/http-factory" />
       <excludeFolder url="file://$MODULE_DIR$/ios" />
-      <excludeFolder url="file://$MODULE_DIR$/promo" />
       <excludeFolder url="file://$MODULE_DIR$/redirect" />
     </content>
     <orderEntry type="inheritedJdk" />
