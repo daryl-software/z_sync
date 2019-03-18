@@ -6,12 +6,19 @@
     <mapping directory="$PROJECT_DIR$/admin-web-ui" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/admin-web-ui/_code_quality" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/archi_config" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/archi_config_loader" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz/config/archi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz_admin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/call" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cpg" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dblinker" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/fusion" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/fusion/_code_quality" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/global" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/global/_code_quality" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pay" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/promo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/v4" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/v5" vcs="Git" />
   </component>
