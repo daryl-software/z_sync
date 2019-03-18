@@ -7,7 +7,7 @@ settings {
 sync {
     default.rsync,
     source="/Volumes/Work/2lm/",
-    target="florian@lab.easyflirt.com:/home/florian/code",
+    target="florian@lab.easyflirt.com:/data/users/florian/code",
     excludeFrom="/Volumes/Work/2lm/z_sync/lsyncd.exclude",
     rsync = {
         binary = "/usr/local/bin/rsync",
