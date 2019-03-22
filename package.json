@@ -7,9 +7,9 @@
   "devDependencies": {},
   "scripts": {
     "sync": "sudo z_sync/sync.sh",
-    "status": "php z_scripts/git.php status",
-    "clone": "php z_scripts/git.php clone",
-    "pull": "php z_scripts/git.php pull",
+    "git-status": "php z_scripts/git.php git-status",
+    "git-clone": "php z_scripts/git.php git-clone",
+    "git-pull": "php z_scripts/git.php git pull --rebase",
     "npm-install": "php z_scripts/git.php npm install",
     "npm-update": "php z_scripts/git.php npm update",
     "npm-outdated": "php z_scripts/git.php npm outdated",

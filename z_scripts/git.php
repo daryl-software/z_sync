@@ -10,7 +10,7 @@ foreach ($config['respositories'] as $name => $respository) {
     echo str_repeat('-', 20) . PHP_EOL;
 
     switch ($action) {
-        case 'clone':
+        case 'git-clone':
             passthru('git clone ' . $respository['source'] . ' ' . $name);
             break;
 
@@ -34,7 +34,7 @@ foreach ($config['respositories'] as $name => $respository) {
             passthru('npm ' . $sub);
             break;
 
-        case 'status':
+        case 'git-status':
             chdir(__DIR__ . '/../' . $name);
 
             $output = shell_exec('git status');
@@ -45,9 +45,10 @@ foreach ($config['respositories'] as $name => $respository) {
             }
             break;
 
-        case 'pull':
+        case 'git':
+            $sub = implode(' ', array_slice($_SERVER['argv'], 2));
             chdir(__DIR__ . '/../' . $name);
-            passthru('git pull --rebase');
+            passthru('git ' . $sub);
             break;
 
         default:
