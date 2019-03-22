@@ -1,5 +1,8 @@
 # 2LM Meta project
 
+## Command shortcuts
+@see package.json/scripts entry
+
 ## Sync
 ```bash
 brew install lsyncd

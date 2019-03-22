@@ -11,10 +11,10 @@ return [
         'call' => [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/global/call.git'
         ],
-        'ui' => [
+        'admin-web-ui' => [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/dating/admin-web-ui.git'
         ],
-        'tools' => [
+        'admin-web-tools' => [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/global/admin-web-tools.git'
         ],
         'archi_config' => [
@@ -42,10 +42,12 @@ return [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/prelinker/promo.git'
         ],
         'dating_ios' => [
-            'source' => 'ssh://git@gitlab.easyflirt.com:222/dating/dating_ios.git'
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/dating/dating_ios.git',
+            'type' => 'ios',
         ],
         'android-multichannel' => [
-            'source' => 'ssh://git@gitlab.easyflirt.com:222/dating/android-multichannel.git'
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/dating/android-multichannel.git',
+            'type' => 'android',
         ],
         'dblinker' => [
             'source' => 'https://github.com/ezweb/dblinker.git'
@@ -54,15 +56,6 @@ return [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/redirect.git'
         ],
         'bridghit' => [
-
             'source' => 'ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git'
         ],
-
-        'admin-web-ui' => [
-            'source' => 'ssh://git@gitlab.easyflirt.com:222/dating/admin-web-ui.git'
-        ],
-        'admin-web-tools' => [
-            'source' => 'ssh://git@gitlab.easyflirt.com:222/global/admin-web-tools.git'
-        ],
-
     ]];
