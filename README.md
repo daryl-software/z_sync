@@ -6,16 +6,14 @@ brew install lsyncd
 sudo z_sync/sync.sh
 ```
 
-## Install
+## Clone all repos
 ```bash
-git submodule update --init
-git submodule foreach 'test -e composer.json && composer install --ignore-platform-reqs || true'
-git submodule foreach 'test -e package.json && npm install --ignore-platform-reqs || true'
+npm run clone
 ```
 
 ## Update projects
 ```bash
-git submodule foreach git pull --rebase
+npm run pull
 ```
 
 ## Outdated deps
@@ -32,9 +30,3 @@ ack --php expression
 # grep all files
 ack expression
 ```
-
-## Adding a project
-```bash
-git submodule add ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git bridghit
-```
-

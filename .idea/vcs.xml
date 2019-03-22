@@ -2,5 +2,25 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/admin-web-tools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/admin-web-ui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/android-multichannel" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/archi_config" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/archi_config_loader" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz_admin" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/bridghit" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/call" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dating_ios" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dblinker" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fusion" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/global" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pay" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/promo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/redirect" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/tools" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ui" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/v4" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/v5" vcs="Git" />
   </component>
 </project>

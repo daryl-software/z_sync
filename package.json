@@ -2,10 +2,18 @@
   "name": "2lm",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "",
   "dependencies": {},
   "devDependencies": {},
-  "scripts": {},
+  "scripts": {
+    "sync": "sudo z_sync/sync.sh",
+    "status": "php z_scripts/git.php status",
+    "clone": "php z_scripts/git.php clone",
+    "pull": "php z_scripts/git.php pull",
+    "composer-install": "php z_scripts/git.php composer install --ignore-platform-reqs",
+    "composer-update": "php z_scripts/git.php composer update --ignore-platform-reqs",
+    "composer-outdated": "php z_scripts/git.php composer outdated -D"
+  },
   "repository": {
     "type": "git",
     "url": "ssh://git@gitlab.easyflirt.com:222/florian/2lm.git"
