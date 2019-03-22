@@ -10,6 +10,9 @@
     "status": "php z_scripts/git.php status",
     "clone": "php z_scripts/git.php clone",
     "pull": "php z_scripts/git.php pull",
+    "npm-install": "php z_scripts/git.php npm install",
+    "npm-update": "php z_scripts/git.php npm update",
+    "npm-outdated": "php z_scripts/git.php npm outdated",
     "composer-install": "php z_scripts/git.php composer install --ignore-platform-reqs",
     "composer-update": "php z_scripts/git.php composer update --ignore-platform-reqs",
     "composer-outdated": "php z_scripts/git.php composer outdated -D"

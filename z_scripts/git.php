@@ -24,6 +24,16 @@ foreach ($config['respositories'] as $name => $respository) {
             passthru('composer ' . $sub);
             break;
 
+        case 'npm':
+            if (!is_file(__DIR__ . '/../' . $name . '/package.json')) {
+                echo 'no package.json found' . PHP_EOL;
+                break;
+            }
+            $sub = implode(' ', array_slice($_SERVER['argv'], 2));
+            chdir(__DIR__ . '/../' . $name);
+            passthru('npm ' . $sub);
+            break;
+
         case 'status':
             chdir(__DIR__ . '/../' . $name);
 
