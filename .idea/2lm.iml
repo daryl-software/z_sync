@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$">
-      <excludeFolder url="file://$MODULE_DIR$/android-multichannel" />
-      <excludeFolder url="file://$MODULE_DIR$/biz_admin/vendor/prelinker" />
-      <excludeFolder url="file://$MODULE_DIR$/bridghit" />
-      <excludeFolder url="file://$MODULE_DIR$/global/vendor/phpmyadmin/sql-parser" />
-      <excludeFolder url="file://$MODULE_DIR$/global/vendor/psr/http-client" />
-      <excludeFolder url="file://$MODULE_DIR$/global/vendor/psr/http-factory" />
-      <excludeFolder url="file://$MODULE_DIR$/ios" />
-      <excludeFolder url="file://$MODULE_DIR$/redirect" />
-    </content>
+    <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

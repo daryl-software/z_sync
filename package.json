@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "dependencies": {
-    "winston": "^3.2.1"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {},
   "repository": {
