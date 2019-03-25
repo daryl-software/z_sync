@@ -178,8 +178,6 @@
       <path value="$PROJECT_DIR$/global/vendor/doctrine/collections" />
       <path value="$PROJECT_DIR$/global/vendor/symfony/dependency-injection" />
       <path value="$PROJECT_DIR$/global/vendor/jakub-onderka/php-parallel-lint" />
-      <path value="$PROJECT_DIR$/global/vendor/phpmd/phpmd" />
-      <path value="$PROJECT_DIR$/global/vendor/pdepend/pdepend" />
       <path value="$PROJECT_DIR$/global/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/global/vendor/theseer/fdomdocument" />
       <path value="$PROJECT_DIR$/global/vendor/sebastian/phpcpd" />

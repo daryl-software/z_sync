@@ -5,8 +5,6 @@
       <excludeFolder url="file://$MODULE_DIR$/android-multichannel" />
       <excludeFolder url="file://$MODULE_DIR$/biz_admin/vendor/prelinker" />
       <excludeFolder url="file://$MODULE_DIR$/dating_ios" />
-      <excludeFolder url="file://$MODULE_DIR$/global/vendor/pdepend/pdepend" />
-      <excludeFolder url="file://$MODULE_DIR$/global/vendor/phpmd/phpmd" />
       <excludeFolder url="file://$MODULE_DIR$/global/vendor/phpunit/php-timer" />
       <excludeFolder url="file://$MODULE_DIR$/global/vendor/sebastian/finder-facade" />
       <excludeFolder url="file://$MODULE_DIR$/global/vendor/sebastian/phpcpd" />
