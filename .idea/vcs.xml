@@ -20,6 +20,7 @@
     <mapping directory="$PROJECT_DIR$/global" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/global/_code_quality" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/pay" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/pga" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/promo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/redirect" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/v4" vcs="Git" />

@@ -58,4 +58,7 @@ return [
         'bridghit' => [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/prelinker-click-logger/bridghit.git'
         ],
+        'pga' => [
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/payment/pga.git'
+        ],
     ]];
