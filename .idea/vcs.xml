@@ -9,6 +9,8 @@
     <mapping directory="$PROJECT_DIR$/archi_config" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/archi_config_loader" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/biz" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz/config/archi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/biz/v5" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/biz_admin" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/bridghit" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/call" vcs="Git" />

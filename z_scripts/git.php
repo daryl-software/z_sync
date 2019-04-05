@@ -4,9 +4,7 @@ $config = include __DIR__ . '/config.php';
 $action = $_SERVER['argv'][1] ?? null;
 
 foreach ($config['respositories'] as $name => $respository) {
-
-    echo str_repeat('-', 20) . PHP_EOL;
-    echo '   Entering:  ' . $name . PHP_EOL;
+    echo PHP_EOL . '📦 ' . $name . PHP_EOL;
     echo str_repeat('-', 20) . PHP_EOL;
 
     switch ($action) {
