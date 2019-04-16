@@ -28,7 +28,6 @@
       <path value="$PROJECT_DIR$/global/vendor/duccio/apns-php" />
       <path value="$PROJECT_DIR$/global/vendor/erusev/parsedown" />
       <path value="$PROJECT_DIR$/global/vendor/ezweb/dblinker" />
-      <path value="$PROJECT_DIR$/global/vendor/apache/log4php" />
       <path value="$PROJECT_DIR$/global/vendor/ezweb/archi-config-loader" />
       <path value="$PROJECT_DIR$/global/vendor/ezweb/mq" />
       <path value="$PROJECT_DIR$/global/vendor/cache/adapter-common" />
@@ -158,7 +157,6 @@
       <path value="$PROJECT_DIR$/global/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/global/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/global/vendor/symfony/stopwatch" />
-      <path value="$PROJECT_DIR$/global/vendor/fusion/logging" />
       <path value="$PROJECT_DIR$/global/vendor/symfony/polyfill-php72" />
       <path value="$PROJECT_DIR$/global/vendor/doctrine/annotations" />
       <path value="$PROJECT_DIR$/global/vendor/doctrine/lexer" />

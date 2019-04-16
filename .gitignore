@@ -21,3 +21,5 @@ z_sync/*.log
 /admin-web-tools
 /pga
 /mq
+/docker-images
+/tracking-www
