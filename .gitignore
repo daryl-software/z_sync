@@ -23,3 +23,5 @@ z_sync/*.log
 /mq
 /docker-images
 /tracking-www
+/global_db
+

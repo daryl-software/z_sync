@@ -7,7 +7,7 @@
   </component>
   <component name="PhpCodeSniffer">
     <phpcs_settings>
-      <PhpCSConfiguration standards="MySource;PEAR;PSR1;PSR12;PSR2;Squiz;Zend" tool_path="$USER_HOME$/.composer/vendor/bin/phpcs" />
+      <PhpCSConfiguration max_messages_per_file="100" standards="MySource;PEAR;PSR1;PSR12;PSR2;Squiz;Zend" tool_path="$USER_HOME$/.composer/vendor/bin/phpcs" />
     </phpcs_settings>
   </component>
   <component name="PhpIncludePathManager">
@@ -182,6 +182,7 @@
       <path value="$PROJECT_DIR$/global/vendor/sebastian/finder-facade" />
       <path value="$PROJECT_DIR$/global/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/global/vendor/nette/schema" />
+      <path value="$PROJECT_DIR$/global/vendor/ivolo/disposable-email-domains" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

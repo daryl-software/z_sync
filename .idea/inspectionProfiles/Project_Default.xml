@@ -132,5 +132,7 @@
       <option name="processComments" value="true" />
     </inspection_tool>
     <inspection_tool class="SqlResolveInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="SummerTimeUnsafeTimeManipulationInspection" enabled="false" level="ERROR" enabled_by_default="false" />
+    <inspection_tool class="TsLint" enabled="true" level="WARNING" enabled_by_default="true" />
   </profile>
 </component>
