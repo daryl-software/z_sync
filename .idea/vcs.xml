@@ -28,7 +28,6 @@
     <mapping directory="$PROJECT_DIR$/pga" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/promo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/redirect" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/test-ci-docker" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/tracking-www" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/v4" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/v5" vcs="Git" />

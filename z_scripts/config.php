@@ -61,4 +61,16 @@ return [
         'pga' => [
             'source' => 'ssh://git@gitlab.easyflirt.com:222/payment/pga.git'
         ],
+        'global_db' => [
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/global/global_db.git'
+        ],
+        'tracking-www' => [
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/raven/tracking-www.git'
+        ],
+        'docker-images' => [
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/global/docker-images.git'
+        ],
+        'mq' => [
+            'source' => 'ssh://git@gitlab.easyflirt.com:222/global/mq.git'
+        ],
     ]];
