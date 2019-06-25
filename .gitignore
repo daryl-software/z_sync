@@ -25,3 +25,4 @@ z_sync/*.log
 /tracking-www
 /global_db
 
+swiftSync/build
