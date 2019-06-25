@@ -2,7 +2,7 @@
     "source": "/Volumes/Work/2lm/",
     "target": "florian@lab.easyflirt.com:/data/users/florian/code/",
     "rsync": {
-        "dryRun": true,
+        "dryRun": false,
         "inPlace": true,
         "ignoreErrors": true,
         "delete": true,

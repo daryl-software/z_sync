@@ -3,7 +3,14 @@
 ## Command shortcuts
 @see package.json/scripts entry
 
-## Sync
+## Sync Mac
+```bash
+cd swiftSync
+xcodebuild
+cd -
+sudo ./swiftSync/build/Release/swiftSync 
+```
+## Sync Linux
 ```bash
 brew install lsyncd
 sudo z_sync/sync.sh
