@@ -1,8 +1,9 @@
-.git/*
+/.git/*
 .idea/*
 /android-multichannel
 /ios
 /z_sync
+/redash
 .DS_Store
 .AppleDouble
 *___jb_old___
