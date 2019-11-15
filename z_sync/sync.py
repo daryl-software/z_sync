@@ -9,6 +9,8 @@ import sys
 import re
 import logging
 import termcolor
+import signal
+import argparse
 
 # pip3 install --user MacFSEvents
 from fsevents import Observer, Stream
@@ -74,6 +76,9 @@ class Syncer:
             self.threads[path] = th
             th.start()
 
+    def sig_handler(self, signum, frame):
+        self.sync(PATH_SOURCE)
+
 
 def setup_logging(debug_level=None, threadless=False, logfile=None, rotate=False):  # {{{
     # if threadless mode, it's a workarround for new Process
@@ -109,7 +114,7 @@ def setup_logging(debug_level=None, threadless=False, logfile=None, rotate=False
     else:
         loghandler = logging.StreamHandler()
 
-    loghandler.setLevel(debug_level)
+    loghandler.setLevel(logging.DEBUG)
     # loghandler.setFormatter(logging.Formatter(logformat, logdatefmt))
     use_color = False
     if "TERM" in os.environ and (re.search("term", os.environ["TERM"]) or os.environ["TERM"] in ('screen',)):
@@ -166,13 +171,34 @@ class ColoredFormatter(logging.Formatter):  # {{{
 
 
 if __name__ == "__main__":
-    setup_logging()
+    setup_logging(logging.INFO)
+
+    parser = argparse.ArgumentParser(
+        description="Sync a volume from OSX to Linux server",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument("--debug", action="store_true", help="DEBUG")
+    parser.add_argument("--init", action="store_true", help="Sync first")
+    args = parser.parse_args()
+
+    if args.debug:
+        logging.root.setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.DEBUG)
+
     observer = Observer()
     syncer = Syncer()
-    logging.info("--------- Init Sync -----------")
-    syncer.sync(PATH_SOURCE)
+
+    if args.init:
+        logging.info("--------- Init Sync -----------")
+        syncer.sync(PATH_SOURCE)
+
+    # CTRL+Z will force a full sync :
+    signal.signal(signal.SIGTSTP, syncer.sig_handler)
+
     observer.start()
     logging.info("------- FS WATCHING %s -------" % PATH_SOURCE)
+    logging.info("(CTRL+z to force a full sync)")
+
     os.chdir(PATH_SOURCE)
     stream = Stream(syncer.callback, PATH_SOURCE)
     try:
