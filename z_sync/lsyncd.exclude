@@ -4,6 +4,8 @@
 /ios
 /z_sync
 /redash
+/Storage
+/github
 .DS_Store
 .AppleDouble
 *___jb_old___

@@ -6,11 +6,11 @@ settings {
 
 sync {
     default.rsync,
-    source="/home/gregory/Data/Lab/",
+    source="/Volumes/Work/",
     target="gregory@lab.easyflirt.com:/data/users/gregory",
-    excludeFrom="/home/gregory/Data/Lab/2lm/z_sync/lsyncd.exclude",
+    excludeFrom="/Volumes/Work/2lm/z_sync/lsyncd.exclude",
     rsync = {
-        binary = "/usr/bin/rsync",
+        binary = "/usr/local/bin/rsync",
         compress = false,
         verbose = true,
         archive = true,
