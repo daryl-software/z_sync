@@ -17,10 +17,16 @@ from fsevents import Observer, Stream
 PATH_SOURCE = "/Volumes/Work/"
 PATH_DEST = "gregory@lab.easyflirt.com:/data/users/gregory/"
 RSYNC = "/usr/local/bin/rsync"
-RSYNC_OPTS = "-rlpt --delete --exclude=/.Spotlight-V100/ --exclude=/.Trashes/ --exclude=/.fseventsd/ --exclude=/Storage/"
+RSYNC_OPTS = "-rlpt --delete"
 EXCLUDES = [
     r'\..+?/',
     r'/Storage/'
+]
+RSYNC_EXCLUDES = [
+    "/.Spotlight-V100/",
+    "/.Trashes/",
+    "/.fseventsd/",
+    "/Storage/"
 ]
 
 
@@ -30,17 +36,23 @@ class Syncer:
         self.excludes = []
         for ex in EXCLUDES:
             self.excludes.append(re.compile(ex))
+        self.rsync_ops = RSYNC_OPTS
+        for ex in RSYNC_EXCLUDES:
+            self.rsync_ops += " '--exclude=%s'"%ex
 
     def sync(self, path):
         for ex in self.excludes:
             if ex.match(path):
                 logging.info("EXCLUDED: %s" % path)
                 return
-        logging.info("Sync for path %s has started" % path)
-        args = (RSYNC, RSYNC_OPTS, path, PATH_DEST + path.replace(PATH_SOURCE, ""))
-        # logging.info("RSYNC: %s"%(" ".join(args)))
-        os.system(" ".join(args))
-        logging.info("Sync for path %s has finished" % path)
+        logging.info("Sync for path %s has started", path)
+        args = (RSYNC, self.rsync_ops, "'%s'"%path, "'%s'"%(PATH_DEST + path.replace(PATH_SOURCE, "")))
+        logging.debug("RSYNC: %s", (" ".join(args)))
+        ret = os.system(" ".join(args))
+        if ret > 0:
+            logging.warning("Sync for path %s has FAILED with error code %s", path, ret)
+        else:
+            logging.info("Sync for path %s has finished (%s)", path, ret)
 
     def cleanup(self):
         cleanup_threads = []
@@ -152,14 +164,15 @@ class ColoredFormatter(logging.Formatter):  # {{{
             return logging.Formatter.format(self, record)
 
 
+
 if __name__ == "__main__":
     setup_logging()
     observer = Observer()
     syncer = Syncer()
     logging.info("--------- Init Sync -----------")
-    # syncer.sync(PATH_SOURCE)
+    syncer.sync(PATH_SOURCE)
     observer.start()
-    logging.info("--------- FS WATCHING %s -----------" % PATH_SOURCE)
+    logging.info("------- FS WATCHING %s -------" % PATH_SOURCE)
     os.chdir(PATH_SOURCE)
     stream = Stream(syncer.callback, PATH_SOURCE)
     try:
@@ -167,10 +180,10 @@ if __name__ == "__main__":
         observer.join()
         logging.info("Schedule finished")
     except KeyboardInterrupt:
-        logging.info("CTRL+c")
+        logging.warning("CTRL+c")
     finally:
         logging.info("Stopping observer...")
         observer.stop()
-        logging.info("Cleanup threads ...")
+        logging.debug("Cleanup threads ...")
         syncer.cleanup()
         logging.info("Finished.")
