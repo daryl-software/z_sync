@@ -11,35 +11,22 @@ import logging
 import termcolor
 import signal
 import argparse
+import yaml
 
 # pip3 install --user MacFSEvents
 from fsevents import Observer, Stream
 
-# Configuration :
-PATH_SOURCE = "/Volumes/Work/"
-PATH_DEST = "gregory@lab.easyflirt.com:/data/users/gregory/"
-RSYNC = "/usr/local/bin/rsync"
-RSYNC_OPTS = "-rlpt --delete"
-EXCLUDES = [
-    r'\..+?/',
-    r'/Storage/'
-]
-RSYNC_EXCLUDES = [
-    "/.Spotlight-V100/",
-    "/.Trashes/",
-    "/.fseventsd/",
-    "/Storage/"
-]
-
 
 class Syncer:
-    def __init__(self):
+    def __init__(self, config):
+        self.config = config
         self.threads = {}
         self.excludes = []
-        for ex in EXCLUDES:
+
+        for ex in self.config["excludes"]:
             self.excludes.append(re.compile(ex))
-        self.rsync_ops = RSYNC_OPTS
-        for ex in RSYNC_EXCLUDES:
+        self.rsync_ops = self.config["rsync_opts"]
+        for ex in self.config["rsync_excludes"]:
             self.rsync_ops += " '--exclude=%s'"%ex
         self.path_chunks = []
         self.chunk_time = None
@@ -73,7 +60,7 @@ class Syncer:
                 logging.info("EXCLUDED: %s" % path)
                 return
         logging.info("Sync for path %s has started", path)
-        args = (RSYNC, self.rsync_ops, "'%s'"%path, "'%s'"%(PATH_DEST + path.replace(PATH_SOURCE, "")))
+        args = (self.config["rsync"], self.rsync_ops, "'%s'"%path, "'%s'"%(self.config["path_dest"] + path.replace(self.config["path_source"], "")))
         logging.debug("RSYNC: %s", (" ".join(args)))
         ret = os.system(" ".join(args))
         if ret > 0:
@@ -119,7 +106,7 @@ class Syncer:
             yield path
 
     def sig_handler(self, signum, frame):
-        self.sync(PATH_SOURCE)
+        self.sync(self.config["path_source"])
 
 
 def setup_logging(debug_level=None, threadless=False, logfile=None, rotate=False):  # {{{
@@ -221,28 +208,32 @@ if __name__ == "__main__":
     )
     parser.add_argument("--debug", action="store_true", help="DEBUG")
     parser.add_argument("--init", action="store_true", help="Sync first")
+    parser.add_argument("--config", action="store", default="config.yaml", help="Use a config file rather than default config.yml")
     args = parser.parse_args()
 
     if args.debug:
         logging.root.setLevel(logging.DEBUG)
         logging.getLogger().setLevel(logging.DEBUG)
 
+    with open(args.config, "r") as configfile:
+        config = yaml.load(configfile, Loader=yaml.FullLoader)
+        
     observer = Observer()
-    syncer = Syncer()
+    syncer = Syncer(config)
 
     if args.init:
         logging.info("--------- Init Sync -----------")
-        syncer.sync(PATH_SOURCE)
+        syncer.sync(config["path_source"])
 
     # CTRL+Z will force a full sync :
     signal.signal(signal.SIGTSTP, syncer.sig_handler)
 
     observer.start()
-    logging.info("------- FS WATCHING %s -------" % PATH_SOURCE)
+    logging.info("------- FS WATCHING %s -------" % config["path_source"])
     logging.info("(CTRL+z to force a full sync)")
 
-    os.chdir(PATH_SOURCE)
-    stream = Stream(syncer.callback, PATH_SOURCE)
+    os.chdir(config["path_source"])
+    stream = Stream(syncer.callback, config["path_source"])
     try:
         observer.schedule(stream)
         observer.join()
