@@ -41,8 +41,33 @@ class Syncer:
         self.rsync_ops = RSYNC_OPTS
         for ex in RSYNC_EXCLUDES:
             self.rsync_ops += " '--exclude=%s'"%ex
+        self.path_chunks = []
+        self.chunk_time = None
+        self._stop = False
+        self._lock = threading.Lock()
+        self._thread = threading.Thread(name="interval", target=self.tick)
+        self._thread.start()
+
+    def tick(self):
+        while not self._stop:
+            if self.chunk_time is None:
+                self.chunk_time = time.time()
+            if time.time() - self.chunk_time >= 0.5 and len(self.path_chunks) > 0:
+                self._lock.acquire(True)
+                for path in self.optimize_paths():
+                    if not path in self.threads:
+                        th = threading.Thread(name="Sync-%s" % path, target=self.sync, args=(path,))
+                        self.threads[path] = th
+                        th.start()
+                self.chunk_time = None
+                self.path_chunks.clear()
+                self._lock.release()
+            else:
+                time.sleep(0.1)
 
     def sync(self, path):
+        if not path.endswith("/"):
+            path = path + "/"
         for ex in self.excludes:
             if ex.match(path):
                 logging.info("EXCLUDED: %s" % path)
@@ -56,10 +81,15 @@ class Syncer:
         else:
             logging.info("Sync for path %s has finished (%s)", path, ret)
 
-    def cleanup(self):
+    def cleanup(self, all=False):
+        if all:
+            self._stop = True
+            self._thread.join(2)
         cleanup_threads = []
         for th in self.threads:
-            self.threads[th].join(0.0)
+            try:
+                self.threads[th].join(0.0)
+            except RuntimeError: pass
             if not self.threads[th].is_alive():
                 logging.debug("Thread %s has been reaped" % self.threads[th].name)
                 cleanup_threads.append(th)
@@ -71,10 +101,22 @@ class Syncer:
         if "/.git/" in path:
             path = re.sub(r'/\.git/.*', '', path)
 
-        if not path in self.threads:
-            th = threading.Thread(name="Sync-%s" % path, target=self.sync, args=(path,))
-            self.threads[path] = th
-            th.start()
+        if not path in self.path_chunks:
+            self._lock.acquire(True)
+            self.path_chunks.append(path)
+            self._lock.release()
+
+    def optimize_paths(self):
+        self.path_chunks.sort()
+        cur = None
+        for path in self.path_chunks:
+            if cur is None:
+                cur = path
+            elif path.startswith(cur):
+                continue
+            else:
+                cur = path
+            yield path
 
     def sig_handler(self, signum, frame):
         self.sync(PATH_SOURCE)
@@ -211,5 +253,5 @@ if __name__ == "__main__":
         logging.info("Stopping observer...")
         observer.stop()
         logging.debug("Cleanup threads ...")
-        syncer.cleanup()
+        syncer.cleanup(True)
         logging.info("Finished.")
