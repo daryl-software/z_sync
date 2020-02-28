@@ -3,40 +3,15 @@
 ## Command shortcuts
 @see package.json/scripts entry
 
-## Sync Mac
+## Z Sync
+
+Cet outil tourne en background et écoute les modifications faites sur le système de fichier local, aggrège et temporise (0.5s) avant de lancer une synchro du dossier contenant les fichiers modifiés (via rsync) sur le serveur distant (lab).
+
 ```bash
-cd swiftSync
-xcodebuild
-cd -
-sudo ./swiftSync/build/Release/swiftSync 
-```
-## Sync Linux
-```bash
-brew install lsyncd
-sudo z_sync/sync.sh
+cd z_sync
+pip3 install --user -r requirements.txt
+vim config.yaml
+./sync.py [--debug] [--init]
 ```
 
-## Clone all repos
-```bash
-npm run clone
-```
-
-## Update projects
-```bash
-npm run pull
-```
-
-## Outdated deps
-```bash
-git submodule foreach 'test -e composer.json && composer outdated -D || true'
-git submodule foreach 'test -e package.json && npm outdated || true'
-```
-
-## Grep files
-```bash
-# grep php files
-ack --php expression
-
-# grep all files
-ack expression
-```
+Tip: `ctrl+z` pour lancer une synchro full.
