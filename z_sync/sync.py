@@ -19,11 +19,12 @@ from fsevents import Observer, Stream
 
 
 class Syncer:
-    def __init__(self, config, disable_notifications):
+    def __init__(self, config, disable_notifications, interval):
         self.config = config
         self.threads = {}
         self.excludes = []
         self.notifications = not disable_notifications
+        self.interval = interval
         logging.getLogger("ntfy").setLevel(logging.WARNING)
         for ex in self.config["excludes"]:
             self.excludes.append(re.compile(ex))
@@ -41,7 +42,7 @@ class Syncer:
         while not self._stop:
             if self.chunk_time is None:
                 self.chunk_time = time.time()
-            if time.time() - self.chunk_time >= 0.5 and len(self.path_chunks) > 0:
+            if time.time() - self.chunk_time >= self.interval and len(self.path_chunks) > 0:
                 self._lock.acquire(True)
                 for path in self.optimize_paths():
                     if not path in self.threads:
@@ -218,6 +219,7 @@ if __name__ == "__main__":
     parser.add_argument("--debug", action="store_true", help="DEBUG")
     parser.add_argument("--init", action="store_true", help="Sync first")
     parser.add_argument("--disable-notifications", action="store_true", help="Disable notifications")
+    parser.add_argument("--interval", action="store", type=float, default=0.5, help="batch interval (default 0,5s)")
     parser.add_argument("--config", action="store", default="config.yaml", help="Use a config file rather than default config.yml")
     args = parser.parse_args()
 
@@ -229,7 +231,7 @@ if __name__ == "__main__":
         config = yaml.load(configfile, Loader=yaml.FullLoader)
         
     observer = Observer()
-    syncer = Syncer(config, args.disable_notifications)
+    syncer = Syncer(config, args.disable_notifications, args.interval)
 
     if args.init:
         logging.info("--------- Init Sync -----------")
@@ -241,6 +243,7 @@ if __name__ == "__main__":
     observer.start()
     logging.info("------- FS WATCHING %s -------" % config["path_source"])
     logging.info("(CTRL+z to force a full sync)")
+    logging.debug("Interval %ssec", args.interval)
 
     os.chdir(config["path_source"])
     stream = Stream(syncer.callback, config["path_source"])
