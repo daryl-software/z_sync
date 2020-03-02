@@ -1,3 +1,4 @@
 termcolor
 MacFSEvents
 PyYAML
+ntfy

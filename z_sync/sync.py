@@ -12,17 +12,19 @@ import termcolor
 import signal
 import argparse
 import yaml
+import ntfy
 
 # pip3 install --user MacFSEvents
 from fsevents import Observer, Stream
 
 
 class Syncer:
-    def __init__(self, config):
+    def __init__(self, config, disable_notifications):
         self.config = config
         self.threads = {}
         self.excludes = []
-
+        self.notifications = not disable_notifications
+        logging.getLogger("ntfy").setLevel(logging.WARNING)
         for ex in self.config["excludes"]:
             self.excludes.append(re.compile(ex))
         self.rsync_ops = self.config["rsync_opts"]
@@ -59,14 +61,21 @@ class Syncer:
             if ex.match(path):
                 logging.info("EXCLUDED: %s" % path)
                 return
+
+        if self.notifications:
+            ntfy.notify(title="🚣 Sync in progress", message="📂 %s"%path)
         logging.info("Sync for path %s has started", path)
         args = (self.config["rsync"], self.rsync_ops, "'%s'"%path, "'%s'"%(self.config["path_dest"] + path.replace(self.config["path_source"], "")))
         logging.debug("RSYNC: %s", (" ".join(args)))
         ret = os.system(" ".join(args))
         if ret > 0:
             logging.warning("Sync for path %s has FAILED with error code %s", path, ret)
+            if self.notifications:
+                ntfy.notify(title="💢 FAILED 💢", message="'%s' sync failed with error=%s"%(path, ret))
         else:
             logging.info("Sync for path %s has finished (%s)", path, ret)
+            if self.notifications:
+                ntfy.notify(title="🍻 Sync DONE 👍", message="📂 %s"%path)
 
     def cleanup(self, all=False):
         if all:
@@ -208,6 +217,7 @@ if __name__ == "__main__":
     )
     parser.add_argument("--debug", action="store_true", help="DEBUG")
     parser.add_argument("--init", action="store_true", help="Sync first")
+    parser.add_argument("--disable-notifications", action="store_true", help="Disable notifications")
     parser.add_argument("--config", action="store", default="config.yaml", help="Use a config file rather than default config.yml")
     args = parser.parse_args()
 
@@ -219,7 +229,7 @@ if __name__ == "__main__":
         config = yaml.load(configfile, Loader=yaml.FullLoader)
         
     observer = Observer()
-    syncer = Syncer(config)
+    syncer = Syncer(config, args.disable_notifications)
 
     if args.init:
         logging.info("--------- Init Sync -----------")
