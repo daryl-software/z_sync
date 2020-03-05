@@ -71,8 +71,7 @@ class Syncer:
         else:
             args = (self.config["rsync"], self.rsync_ops, "'%s'"%path, "'%s'"%(self.config["path_dest"] + path.replace(self.config["path_source"], "")))
         logging.debug("RSYNC: %s", (" ".join(args)))
-        #ret = os.system(" ".join(args))
-        ret = 0
+        ret = os.system(" ".join(args))
         if ret > 0:
             logging.warning("Sync for path %s has FAILED with error code %s", path, ret)
             if self.notifications:
@@ -248,6 +247,7 @@ if __name__ == "__main__":
             syncer.sync(config["path_source"], args.from_server)
         else:
             logging.critical("--init needs --from-server or --from-local")
+            syncer.cleanup(True)
             sys.exit(5)
 
     # CTRL+Z will force a full sync :

@@ -1,4 +1,4 @@
-path_source: "/Volumes/Work/"
+path_source: "/Users/gregory/Work/"
 path_dest: "gregory@lab.easyflirt.com:/data/users/gregory/"
 rsync: "/usr/local/bin/rsync"
 rsync_opts: "-rlpt --delete"
