@@ -11,7 +11,7 @@ Cet outil tourne en background et écoute les modifications faites sur le systè
 cd z_sync
 pip3 install --user -r requirements.txt
 vim config.yaml
-./sync.py [--debug] [--init]
+./sync.py [--debug] [--init] [--from-server|local] 
 ```
 
 Tip: `ctrl+z` pour lancer une synchro full.
