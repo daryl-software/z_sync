@@ -55,7 +55,7 @@ class Syncer:
             else:
                 time.sleep(0.1)
 
-    def sync(self, path):
+    def sync(self, path, reverse=False):
         if not path.endswith("/"):
             path = path + "/"
         for ex in self.excludes:
@@ -66,9 +66,13 @@ class Syncer:
         if self.notifications:
             ntfy.notify(title="🚣 Sync in progress", message="📂 %s"%path)
         logging.info("Sync for path %s has started", path)
-        args = (self.config["rsync"], self.rsync_ops, "'%s'"%path, "'%s'"%(self.config["path_dest"] + path.replace(self.config["path_source"], "")))
+        if reverse:
+            args = (self.config["rsync"], self.rsync_ops, "'%s'"%(self.config["path_dest"] + path.replace(self.config["path_source"], "")), "'%s'"%path)
+        else:
+            args = (self.config["rsync"], self.rsync_ops, "'%s'"%path, "'%s'"%(self.config["path_dest"] + path.replace(self.config["path_source"], "")))
         logging.debug("RSYNC: %s", (" ".join(args)))
-        ret = os.system(" ".join(args))
+        #ret = os.system(" ".join(args))
+        ret = 0
         if ret > 0:
             logging.warning("Sync for path %s has FAILED with error code %s", path, ret)
             if self.notifications:
@@ -218,6 +222,8 @@ if __name__ == "__main__":
     )
     parser.add_argument("--debug", action="store_true", help="DEBUG")
     parser.add_argument("--init", action="store_true", help="Sync first")
+    parser.add_argument("--from-server", action="store_true", help="Init from server to local")
+    parser.add_argument("--from-local", action="store_true", help="Init from local to server")
     parser.add_argument("--disable-notifications", action="store_true", help="Disable notifications")
     parser.add_argument("--interval", action="store", type=float, default=0.5, help="batch interval (default 0,5s)")
     parser.add_argument("--config", action="store", default="config.yaml", help="Use a config file rather than default config.yml")
@@ -234,8 +240,15 @@ if __name__ == "__main__":
     syncer = Syncer(config, args.disable_notifications, args.interval)
 
     if args.init:
-        logging.info("--------- Init Sync -----------")
-        syncer.sync(config["path_source"])
+        if args.from_server or args.from_local:
+            direction = "from Local"
+            if args.from_server:
+                direction = "from Server"
+            logging.info("--------- Init Sync %s -----------", direction)
+            syncer.sync(config["path_source"], args.from_server)
+        else:
+            logging.critical("--init needs --from-server or --from-local")
+            sys.exit(5)
 
     # CTRL+Z will force a full sync :
     signal.signal(signal.SIGTSTP, syncer.sig_handler)
