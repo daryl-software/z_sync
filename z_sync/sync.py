@@ -19,11 +19,11 @@ from fsevents import Observer, Stream
 
 
 class Syncer:
-    def __init__(self, config, disable_notifications, interval):
+    def __init__(self, config, enable_notifications, interval):
         self.config = config
         self.threads = {}
         self.excludes = []
-        self.notifications = not disable_notifications
+        self.notifications = enable_notifications
         self.interval = interval
         logging.getLogger("ntfy").setLevel(logging.WARNING)
         for ex in self.config["excludes"]:
@@ -38,12 +38,18 @@ class Syncer:
         self._thread = threading.Thread(name="interval", target=self.tick)
         self._thread.start()
 
+    def lock(self):
+        return self._lock.acquire(True)
+
+    def release(self):
+        return self._lock.release()
+
     def tick(self):
         while not self._stop:
             if self.chunk_time is None:
                 self.chunk_time = time.time()
             if time.time() - self.chunk_time >= self.interval and len(self.path_chunks) > 0:
-                self._lock.acquire(True)
+                self.lock()
                 for path in self.optimize_paths():
                     if not path in self.threads:
                         th = threading.Thread(name="Sync-%s" % path, target=self.sync, args=(path,))
@@ -51,7 +57,7 @@ class Syncer:
                         th.start()
                 self.chunk_time = None
                 self.path_chunks.clear()
-                self._lock.release()
+                self.release()
             else:
                 time.sleep(0.1)
 
@@ -102,9 +108,9 @@ class Syncer:
             path = re.sub(r'/\.git/.*', '', path)
 
         if not path in self.path_chunks:
-            self._lock.acquire(True)
+            self.lock()
             self.path_chunks.append(path)
-            self._lock.release()
+            self.release()
 
     def optimize_paths(self):
         self.path_chunks.sort()
@@ -223,9 +229,13 @@ if __name__ == "__main__":
     parser.add_argument("--init", action="store_true", help="Sync first")
     parser.add_argument("--from-server", action="store_true", help="Init from server to local")
     parser.add_argument("--from-local", action="store_true", help="Init from local to server")
-    parser.add_argument("--disable-notifications", action="store_true", help="Disable notifications")
+    parser.add_argument("--enable-notifications", action="store_true", help="Enable notifications")
     parser.add_argument("--interval", action="store", type=float, default=0.5, help="batch interval (default 0,5s)")
-    parser.add_argument("--config", action="store", default="config.yaml", help="Use a config file rather than default config.yml")
+    parser.add_argument("--config",
+                        action="store",
+                        default=os.path.dirname(os.path.realpath(__file__)) + "/config.yaml",
+                        help="Use a config file rather than default config.yml"
+                        )
     args = parser.parse_args()
 
     if args.debug:
@@ -236,7 +246,7 @@ if __name__ == "__main__":
         config = yaml.load(configfile, Loader=yaml.FullLoader)
         
     observer = Observer()
-    syncer = Syncer(config, args.disable_notifications, args.interval)
+    syncer = Syncer(config, args.enable_notifications, args.interval)
 
     if args.init:
         if args.from_server or args.from_local:
@@ -244,7 +254,9 @@ if __name__ == "__main__":
             if args.from_server:
                 direction = "from Server"
             logging.info("--------- Init Sync %s -----------", direction)
+            syncer.lock()
             syncer.sync(config["path_source"], args.from_server)
+            syncer.release()
         else:
             logging.critical("--init needs --from-server or --from-local")
             syncer.cleanup(True)
