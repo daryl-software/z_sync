@@ -13,9 +13,53 @@ import signal
 import argparse
 import yaml
 import ntfy
+import cmd
 
 # pip3 install --user MacFSEvents
 from fsevents import Observer, Stream
+
+
+class Shell(cmd.Cmd):
+    prompt = '(sync) '
+    def set(self, event, observer, syncer):
+        self.event = event
+        self.observer = observer
+        self.syncer = syncer
+
+    def do_ls(self, arg):
+        'list directories'
+        for f in os.listdir('.'):
+            if f.startswith('.'):
+                continue
+            if os.path.isdir(f):
+                print(f)
+
+    def do_sync(self, arg):
+        'sync a directory'
+        self.syncer.lock()
+        self.syncer.sync(arg)
+        self.syncer.release()
+
+    def do_fullsync(self, arg):
+        'sync full'
+        self.syncer.lock()
+        self.syncer.sync('.')
+        self.syncer.release()
+
+    def do_enable(self, arg):
+        'enable [notifications]'
+        if arg == 'notifications':
+            self.syncer.notifications = True
+
+    def do_disable(self, arg):
+        'disable [notifications]'
+        if arg == 'notifications':
+            self.syncer.notifications = False
+
+    def do_q(self, arg):
+        'exit'
+        self.event.set()
+        self.observer.stop()
 
 
 class Syncer:
@@ -247,6 +291,13 @@ if __name__ == "__main__":
         
     observer = Observer()
     syncer = Syncer(config, args.enable_notifications, args.interval)
+
+    shell = Shell()
+    shell_event = threading.Event()
+    shell.set(shell_event, observer, syncer)
+    shell_thread = threading.Thread(target=shell.cmdloop)
+    shell_thread.setDaemon(True)
+    shell_thread.start()
 
     if args.init:
         if args.from_server or args.from_local:
