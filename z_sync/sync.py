@@ -35,9 +35,15 @@ class Shell(cmd.Cmd):
                 print(f)
 
     def do_sync(self, arg):
-        'sync a directory'
+        'sync a directory to server'
         self.syncer.lock()
         self.syncer.sync(arg)
+        self.syncer.release()
+
+    def do_fetch(self, arg):
+        'fetch a directory to workstation'
+        self.syncer.lock()
+        self.syncer.sync(arg, reverse=True)
         self.syncer.release()
 
     def do_fullsync(self, arg):
