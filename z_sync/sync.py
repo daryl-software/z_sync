@@ -119,6 +119,14 @@ class Syncer:
                 logging.info("EXCLUDED: %s" % path)
                 return
 
+        if '../' in path:
+            logging.critical("What are you trying to do ?")
+            return
+
+        if not os.path.abspath(self.config["path_source"] + path).startswith(self.config["path_source"]):
+            logging.critical("What are you trying to do ? Cannot sync relative path.")
+            return
+
         if self.notifications:
             ntfy.notify(title="🚣 Sync in progress", message="📂 %s"%path)
         logging.info("Sync for path %s has started", path)
