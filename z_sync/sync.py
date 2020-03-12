@@ -20,7 +20,7 @@ from fsevents import Observer, Stream
 
 
 class Shell(cmd.Cmd):
-    prompt = '(sync) '
+    prompt = '🔁 '
     def set(self, event, observer, syncer):
         self.event = event
         self.observer = observer
@@ -47,9 +47,15 @@ class Shell(cmd.Cmd):
         self.syncer.release()
 
     def do_fullsync(self, arg):
-        'sync full'
+        'full sync from local'
         self.syncer.lock()
         self.syncer.sync('.')
+        self.syncer.release()
+
+    def do_fullfetch(self, arg):
+        'full fetch from server'
+        self.syncer.lock()
+        self.syncer.sync('.', reverse=True)
         self.syncer.release()
 
     def do_enable(self, arg):
