@@ -15,8 +15,12 @@ import yaml
 import ntfy
 import cmd
 
-# pip3 install --user MacFSEvents
-from fsevents import Observer, Stream
+try:
+    # pip3 install --user MacFSEvents
+    from fsevents import Observer, Stream
+except ImportError:
+    if sys.platform is not 'darwin':
+        from linux import Observer, Stream
 
 
 class Shell(cmd.Cmd):
@@ -118,6 +122,8 @@ class Syncer:
                 time.sleep(0.1)
 
     def sync(self, path, reverse=False):
+        print(path)
+        return
         if not path.endswith("/"):
             path = path + "/"
         for ex in self.excludes:
