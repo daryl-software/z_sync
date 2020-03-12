@@ -1,4 +1,5 @@
 termcolor
-MacFSEvents
+MacFSEvents; sys_platform == 'darwin'
+inotify
 PyYAML
 ntfy
