@@ -77,6 +77,9 @@ class Shell(cmd.Cmd):
         self.event.set()
         self.observer.stop()
 
+    def emptyline(self):
+        pass
+
 
 class Syncer:
     def __init__(self, config, enable_notifications, interval):
@@ -122,8 +125,6 @@ class Syncer:
                 time.sleep(0.1)
 
     def sync(self, path, reverse=False):
-        print(path)
-        return
         if not path.endswith("/"):
             path = path + "/"
         for ex in self.excludes:
