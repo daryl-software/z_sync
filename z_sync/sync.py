@@ -170,8 +170,10 @@ class Syncer:
             if not self.threads[th].is_alive():
                 logging.debug("Thread %s has been reaped" % self.threads[th].name)
                 cleanup_threads.append(th)
-        for th in cleanup_threads:
-            del self.threads[th]
+        try:
+            for th in cleanup_threads:
+                del self.threads[th]
+        except RuntimeError: pass
 
     def callback(self, path: str, mask):
         self.cleanup()
