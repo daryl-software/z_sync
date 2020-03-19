@@ -1,5 +1,5 @@
 path_source: "/Volumes/Work/"
-path_dest: "gregory@lab.easyflirt.com:/data/users/gregory/"
+path_dest: "gregory@gitlab.host:/home/gregory/"
 rsync: "/usr/local/bin/rsync"
 rsync_opts: "-rlptz --delete"
 excludes:
