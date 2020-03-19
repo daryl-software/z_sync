@@ -315,8 +315,12 @@ if __name__ == "__main__":
         logging.root.setLevel(logging.DEBUG)
         logging.getLogger().setLevel(logging.DEBUG)
 
-    with open(args.config, "r") as configfile:
+    with open(os.path.dirname(os.path.realpath(__file__)) + "/config.yaml.default", "r") as configfile:
         config = yaml.load(configfile, Loader=yaml.FullLoader)
+    with open(args.config, "r") as configfile:
+        config.update(yaml.load(configfile, Loader=yaml.FullLoader))
+    print(config)
+    sys.exit(0)
         
     observer = Observer()
     syncer = Syncer(config, args.enable_notifications, args.interval)
