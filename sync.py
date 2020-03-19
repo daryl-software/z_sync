@@ -319,8 +319,6 @@ if __name__ == "__main__":
         config = yaml.load(configfile, Loader=yaml.FullLoader)
     with open(args.config, "r") as configfile:
         config.update(yaml.load(configfile, Loader=yaml.FullLoader))
-    print(config)
-    sys.exit(0)
         
     observer = Observer()
     syncer = Syncer(config, args.enable_notifications, args.interval)
