@@ -1,17 +1,20 @@
-# 2LM Meta project
+# Z Sync
 
-## Command shortcuts
-@see package.json/scripts entry
+This tool run in background and watch FS events to trigger sync (via rsync) from local directories to remote server.
 
-## Z Sync
+Syncs are batched to limit triggers, by default every 0.5sec.
 
-Cet outil tourne en background et écoute les modifications faites sur le système de fichier local, aggrège et temporise (0.5s) avant de lancer une synchro du dossier contenant les fichiers modifiés (via rsync) sur le serveur distant (lab).
+Both config.yaml.default and config.yaml are parsed and merged.
 
 ```bash
 cd z_sync
-pip3 install --user -r requirements.txt
+pip3 install --user -r requirements.txt --upgrade
+cp config.yaml.default config.yaml
 vim config.yaml
 ./sync.py [--debug] [--init] [--from-server|local] 
 ```
 
-Tip: `ctrl+z` pour lancer une synchro full.
+Tip: `ctrl+z` to trigger a full sync.
+
+A CLI is available to force sync from or to remote server. Type `help`.
+
