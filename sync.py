@@ -317,8 +317,16 @@ if __name__ == "__main__":
 
     with open(os.path.dirname(os.path.realpath(__file__)) + "/config.yaml.default", "r") as configfile:
         config = yaml.load(configfile, Loader=yaml.FullLoader)
-    with open(args.config, "r") as configfile:
-        config.update(yaml.load(configfile, Loader=yaml.FullLoader))
+    try:
+        with open(args.config, "r") as configfile:
+            config.update(yaml.load(configfile, Loader=yaml.FullLoader))
+    except FileNotFoundError:
+        pass
+    try:
+        with open(os.path.expanduser("~/.z_sync.yaml"), "r") as configfile:
+            config.update(yaml.load(configfile, Loader=yaml.FullLoader))
+    except FileNotFoundError:
+        pass
         
     observer = Observer()
     syncer = Syncer(config, args.enable_notifications, args.interval)

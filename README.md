@@ -4,7 +4,10 @@ This tool run in background and watch FS events to trigger sync (via rsync) from
 
 Syncs are batched to limit triggers, by default every 0.5sec.
 
-Both config.yaml.default and config.yaml are parsed and merged.
+Reads config files in this order :
+1. `config.yaml.default`
+2. `config.yaml` or file specified by `--config` parameter
+3. `~/.z_sync.yaml`
 
 ```bash
 cd z_sync
